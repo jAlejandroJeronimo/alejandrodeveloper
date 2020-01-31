@@ -208,14 +208,54 @@ public class LABORATORIO2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nombre, cargo;
+        nombre=txtNombre.getText();
+        cargo=txtCargo.getText();
+        float salario=0, extraordinario=0, bonificacion=0, hrs=0, otros=0, horas=0,sueldobruto=0,isr=0,igss=0,horasextras=0;
+        salario=Float.parseFloat(txtSalario.getText());
+        extraordinario=Float.parseFloat(txtExtra.getText());
+        bonificacion=Float.parseFloat(txtBonif.getText());
+        hrs=Float.parseFloat(txtHrs.getText());
+        otros=Float.parseFloat(txtOtros.getText());
+        sueldobruto=extraordinario+salario+bonificacion+otros;
+        igss=(float) (sueldobruto*4.83)/100;
+        horasextras=(float) ((extraordinario/30)/1.5)*hrs;
+        
+        if(sueldobruto<6000){
+            isr=0;
+        }
+        else
+            if(sueldobruto<8000){
+                isr=(sueldobruto*5)/100;
+            }
+        else
+            if(sueldobruto<9500){
+                isr=(sueldobruto*6)/100;
+            }
+        else
+            if(sueldobruto>9500){
+                isr=(sueldobruto*8)/100;
+            }
+        
+        
         DefaultTableModel modelo = (DefaultTableModel) tbDatos.getModel();
-        Object[] data = new Object[15];
-        data[0]=txtNombre.getText();
-        data[1]=txtCargo.getText();
+        Object[] data = new Object[6];
+        data[0]=nombre;
+        data[1]=cargo;
+        data[2]=horasextras;
+        data[3]=sueldobruto;
+        data[4]=igss;
+        data[5]=isr;
         
         modelo.addRow(data);
         txtNombre.setText("");
         txtCargo.setText("");
+        txtSalario.setText("");
+        txtExtra.setText("");
+        txtOtros.setText("");
+        txtBonif.setText("");
+        txtHrs.setText("");
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
